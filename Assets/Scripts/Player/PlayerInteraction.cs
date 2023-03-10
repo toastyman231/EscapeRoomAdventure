@@ -27,7 +27,6 @@ public class PlayerInteraction : MonoBehaviour
 
         if (_currentInteractable == null)
         {
-            //_canInteract = true;
             return;
         }
 
@@ -36,9 +35,8 @@ public class PlayerInteraction : MonoBehaviour
             _currentInteractable.MouseOver();
         }
 
-        if (_canInteract && Input.GetButtonUp("Interact"))
+        if (_canInteract && Input.GetButtonDown("Interact"))
         {
-            Debug.Log("Interacted!");
             _currentInteractable.Interact();
         }
     }
@@ -59,8 +57,11 @@ public class PlayerInteraction : MonoBehaviour
         _canInteract = canInteract;
     }
 
-    public float GetDistance()
+    public Vector3 HeldObjectTarget()
     {
-        return interactDistance;
+        Vector3 target = Camera.main.transform.position;
+        target += GetComponent<PlayerController>().GetDirection().forward
+                  * (interactDistance - 0.5f);
+        return target;
     }
 }

@@ -19,19 +19,15 @@ public class PickUp : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (_pickedUp)
+        if (_pickedUp && Vector3.Distance(transform.position, _playerInteraction.HeldObjectTarget()) > 0.1f)
         {
-            Vector3 target = Camera.main.transform.position;
-            target += _playerInteraction.gameObject.GetComponent<PlayerController>().GetDirection().forward 
-                      * (_playerInteraction.GetDistance() - 0.5f);
+            Vector3 target = _playerInteraction.HeldObjectTarget();
 
-            //Vector3 difference = target - transform.position;
-            //_rb.velocity = Vector3.zero;
-            //_rb.AddForce(difference.normalized * attractionForce, ForceMode.Impulse);
-            transform.position = target;
+            Vector3 difference = target - transform.position;
+            _rb.AddForce(difference * attractionForce);
         } 
         
-        if (_pickedUp && Input.GetButtonDown("Interact")) DropObject();
+        if (_pickedUp && Input.GetButtonDown("Interact")) StartCoroutine(DropObject());
     }
 
     private void PickUpObject()
@@ -39,13 +35,25 @@ public class PickUp : MonoBehaviour, IInteractable
         Debug.Log("Picked up");
         _pickedUp = true;
         _playerInteraction.SetInteraction(false);
+        _rb.useGravity = false;
+        _rb.drag = 10f;
+        _rb.constraints = RigidbodyConstraints.FreezeRotation;
+        transform.parent = _playerInteraction.transform;
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
-    private void DropObject()
+    private IEnumerator DropObject()
     {
         Debug.Log("Dropped object!");
         _pickedUp = false;
         _playerInteraction.SetInteraction(true);
+        _rb.useGravity = true;
+        _rb.drag = 1f;
+        _rb.constraints = RigidbodyConstraints.None;
+        transform.parent = null;
+
+        yield return null;
+        gameObject.layer = LayerMask.NameToLayer("Interact");
     }
 
     public void MouseOver()
@@ -57,7 +65,7 @@ public class PickUp : MonoBehaviour, IInteractable
     {
         if (_playerInteraction == null)
             _playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
-        //if (_pickedUp) DropObject();
+
         PickUpObject();
     }
 }
