@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string objectName;
+
     [SerializeField] private float attractionForce;
 
     private bool _pickedUp;
@@ -59,6 +61,7 @@ public class PickUp : MonoBehaviour, IInteractable
     public void MouseOver()
     {
         // TODO: Add mouse over
+        InteractionUIController.ShowInteractionUi("Pick Up " + objectName);
     }
 
     public void Interact()

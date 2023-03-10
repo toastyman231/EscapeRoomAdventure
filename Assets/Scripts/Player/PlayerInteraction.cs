@@ -27,6 +27,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (_currentInteractable == null)
         {
+            InteractionUIController.HideInteractionUi();
             return;
         }
 

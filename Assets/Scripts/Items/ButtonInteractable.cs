@@ -30,6 +30,7 @@ public class ButtonInteractable : MonoBehaviour, IInteractable
     public void MouseOver()
     {
         // TODO: Add mouse over
+        InteractionUIController.ShowInteractionUi("Press Button");
     }
 
     public void Interact()
