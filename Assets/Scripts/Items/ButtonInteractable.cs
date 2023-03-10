@@ -27,9 +27,14 @@ public class ButtonInteractable : MonoBehaviour, IInteractable
         
     }
 
+    private void OnMouseExit()
+    {
+        transform.GetChild(1).gameObject.layer = LayerMask.NameToLayer("Default");
+    }
+
     public void MouseOver()
     {
-        // TODO: Add mouse over
+        transform.GetChild(1).gameObject.layer = LayerMask.NameToLayer("Outline");
         InteractionUIController.ShowInteractionUi("Press Button");
     }
 

@@ -1124,7 +1124,7 @@ MonoBehaviour:
   interactDistance: 2
   interactLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!1 &879430651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1430,7 @@ GameObject:
   - component: {fileID: 966964554}
   - component: {fileID: 966964553}
   - component: {fileID: 966964552}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}

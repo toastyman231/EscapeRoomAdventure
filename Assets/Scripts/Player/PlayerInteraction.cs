@@ -9,6 +9,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private IInteractable _currentInteractable;
 
+    private GameObject _previousInteractable;
+
     private PlayerController _controller;
 
     private bool _canInteract;
@@ -47,7 +49,8 @@ public class PlayerInteraction : MonoBehaviour
         if (Physics.Raycast(Camera.main.transform.position, _controller.GetDirection().forward, 
                 out var hit, interactDistance, interactLayer))
         {
-            return hit.transform.gameObject.GetComponent<IInteractable>();
+            _previousInteractable = hit.transform.gameObject;
+            return _previousInteractable.GetComponent<IInteractable>();
         }
 
         return null;
