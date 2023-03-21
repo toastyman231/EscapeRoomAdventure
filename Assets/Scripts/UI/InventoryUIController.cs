@@ -53,9 +53,18 @@ public class InventoryUIController : MonoBehaviour
         UpdateInfoPanelEvent?.Invoke(null, new InfoEventArgs { SelectedItem = selectedItem });
     }
 
+    public void UseItem()
+    {
+        PlayerInventory.Instance.PrepareToUseItem(_selectedItem);
+        InvokeHideInventory();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<MouseLook>().SetCanLook(true);
+    }
+
     public void DropItem()
     {
         PlayerInventory.Instance.RemoveItem(_selectedItem);
+        InvokeHideInventory();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<MouseLook>().SetCanLook(true);
     }
 
     private void UpdateInfoPanel(object sender, InfoEventArgs args)
@@ -94,24 +103,33 @@ public class InventoryUIController : MonoBehaviour
 
     private void PopulateInventoryList()
     {
-        if (PlayerInventory.Instance.Empty()) return;
-
         int index = 0;
         foreach (Transform inventorySlot in inventoryParent.transform)
         {
+            inventorySlot.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+
             if (index >= PlayerInventory.Instance.Count())
             {
+                inventorySlot.GetComponent<InventorySlot>().SlotItem = null;
+                Image image = inventorySlot.transform.GetChild(1).GetComponent<Image>();
+                image.color = new Color(0.42f, 0.42f, 0.42f, 1.0f);
+                image.sprite = null;
                 index++;
                 continue;
             }
 
-            Image inventoryImage = inventorySlot.GetComponentInChildren<Image>();
+            Image inventoryImage = inventorySlot.transform.GetChild(1).GetComponent<Image>();
             IInventoryItem item = PlayerInventory.Instance.GetItem(index);
             Sprite itemImage = item.GetItemSprite();
 
             if (itemImage != null)
             {
                 inventoryImage.sprite = itemImage;
+                inventoryImage.color = Color.white;
+            }
+            else
+            {
+                inventoryImage.color = new Color(0.42f, 0.42f, 0.42f, 1.0f);
             }
 
             InventorySlot slot = inventorySlot.GetComponent<InventorySlot>();

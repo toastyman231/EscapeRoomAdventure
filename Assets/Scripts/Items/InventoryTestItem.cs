@@ -6,6 +6,7 @@ public class InventoryTestItem : MonoBehaviour, IInventoryItem, IInteractable
 {
     [SerializeField] private string name;
     [SerializeField] private string description;
+    [SerializeField] private Sprite image;
 
     public IInventoryItem GetItem()
     {
@@ -24,13 +25,13 @@ public class InventoryTestItem : MonoBehaviour, IInventoryItem, IInteractable
 
     public Sprite GetItemSprite()
     {
-        return null;
+        return image;
     }
 
     public void Interact()
     {
-        PlayerInventory.Instance.AddItem(this);
-        gameObject.SetActive(false);
+        if (PlayerInventory.Instance.AddItem(this))
+            gameObject.SetActive(false);
     }
 
     public void MouseOver()

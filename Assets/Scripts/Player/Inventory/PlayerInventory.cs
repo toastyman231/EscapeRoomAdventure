@@ -31,12 +31,6 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        // TODO: Remove this
-        if (Input.GetButtonDown("Jump"))
-        {
-            PrepareToUseItem(_inventory[0]);
-        }
-
         if (_activeItem != null && Input.GetButtonDown("Interact"))
         {
             UseActiveItem();
@@ -44,10 +38,16 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void AddItem(IInventoryItem item)
+    public bool AddItem(IInventoryItem item)
     {
-        if (_inventory.Count < maxSize) _inventory.Add(item);
-        item.OnAddToInventory();
+        if (_inventory.Count < maxSize)
+        {
+            _inventory.Add(item);
+            item.OnAddToInventory();
+            return true;
+        }
+
+        return false;
     }
 
     public void RemoveItem(IInventoryItem item)
@@ -83,7 +83,7 @@ public class PlayerInventory : MonoBehaviour
         return _inventory.Count;
     }
 
-    private void PrepareToUseItem(IInventoryItem item)
+    public void PrepareToUseItem(IInventoryItem item)
     {
         _activeItem = item;
         _interaction.SetUsingItem(true);
