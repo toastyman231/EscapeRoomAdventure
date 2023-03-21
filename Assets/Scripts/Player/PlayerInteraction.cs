@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +16,13 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool _canInteract;
 
+    private bool _usingItem;
+
     // Start is called before the first frame update
     void Start()
     {
         _canInteract = true;
+        _usingItem = false;
         _controller = GetComponent<PlayerController>();
     }
 
@@ -27,7 +31,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         _currentInteractable = CheckForInteractable();
 
-        if (_currentInteractable == null)
+        if (_currentInteractable == null && !_usingItem)
         {
             InteractionUIController.HideInteractionUi();
             return;
@@ -59,6 +63,11 @@ public class PlayerInteraction : MonoBehaviour
     public void SetInteraction(bool canInteract)
     {
         _canInteract = canInteract;
+    }
+
+    public void SetUsingItem(bool usingItem)
+    {
+        _usingItem = usingItem;
     }
 
     public Vector3 HeldObjectTarget()

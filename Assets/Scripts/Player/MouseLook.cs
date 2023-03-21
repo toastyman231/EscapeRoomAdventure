@@ -8,6 +8,8 @@ public class MouseLook : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 100.0f;
     [SerializeField] private float clampAngle = 80.0f;
 
+    private bool _canLook;
+
     private float _rotY = 0.0f; // Rotation around the up/y axis
     private float _rotX = 0.0f; // Rotation around the right/x axis
 
@@ -18,12 +20,15 @@ public class MouseLook : MonoBehaviour
         _rotY = rot.y;
         _rotX = rot.x;
 
+        _canLook = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
+        if (!_canLook) return;
+
         // Get the mouse movement
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = -Input.GetAxis("Mouse Y");
@@ -38,5 +43,12 @@ public class MouseLook : MonoBehaviour
         // Apply the rotation
         Quaternion localRotation = Quaternion.Euler(_rotX, _rotY, 0.0f);
         transform.rotation = localRotation;
+    }
+
+    public void SetCanLook(bool canLook)
+    {
+        _canLook = canLook;
+        Cursor.visible = !canLook;
+        Cursor.lockState = (canLook) ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }

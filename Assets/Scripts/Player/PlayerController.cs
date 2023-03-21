@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float gravity;
 
+    private MouseLook _mouseLook;
+
     private CharacterController _controller;
 
     private Transform _direction;
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _controller = GetComponent<CharacterController>();
+        _mouseLook = GetComponentInChildren<MouseLook>();
         _direction = transform.GetChild(0);
     }
 
@@ -23,6 +26,20 @@ public class PlayerController : MonoBehaviour
     {
         _controller.Move(Vector3.down * gravity * Time.deltaTime);
         MovePlayer();
+
+        if (Input.GetButtonDown("Inventory"))
+        {
+            if (InventoryUIController.ShowingInventory)
+            {
+                InventoryUIController.InvokeHideInventory();
+                _mouseLook.SetCanLook(true);
+            }
+            else
+            {
+                InventoryUIController.InvokeShowInventory();
+                _mouseLook.SetCanLook(false);
+            }
+        }
     }
 
     private void MovePlayer()
