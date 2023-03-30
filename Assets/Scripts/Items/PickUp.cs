@@ -40,11 +40,6 @@ public class PickUp : MonoBehaviour, IInteractable
         if (_pickedUp && Input.GetButtonDown("Interact")) StartCoroutine(DropObject());
     }
 
-    private void OnMouseExit()
-    {
-        gameObject.layer = LayerMask.NameToLayer("Interact");
-    }
-
     private void PickUpObject()
     {
         Debug.Log("Picked up");
@@ -76,6 +71,11 @@ public class PickUp : MonoBehaviour, IInteractable
     {
         gameObject.layer = LayerMask.NameToLayer("Outline");
         InteractionUIController.ShowInteractionUi("Pick Up " + objectName);
+    }
+
+    public void MouseExit()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Interact");
     }
 
     public void Interact()

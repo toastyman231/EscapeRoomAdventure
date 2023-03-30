@@ -29,7 +29,14 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _currentInteractable = CheckForInteractable();
+        IInteractable temp = CheckForInteractable();
+
+        if (temp == null || temp != _currentInteractable)
+        {
+            _currentInteractable?.MouseExit();
+        }
+
+        _currentInteractable = temp;
 
         if (_currentInteractable == null && !_usingItem)
         {

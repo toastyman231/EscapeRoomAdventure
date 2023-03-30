@@ -28,6 +28,11 @@ public class InventoryTestItem : MonoBehaviour, IInventoryItem, IInteractable
         return image;
     }
 
+    public void MouseExit()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Interact");
+    }
+
     public void Interact()
     {
         if (PlayerInventory.Instance.AddItem(this))
@@ -58,10 +63,5 @@ public class InventoryTestItem : MonoBehaviour, IInventoryItem, IInteractable
     public void Use()
     {
         Debug.Log("Using test item!");
-    }
-
-    private void OnMouseExit()
-    {
-        gameObject.layer = LayerMask.NameToLayer("Interact");
     }
 }

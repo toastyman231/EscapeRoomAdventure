@@ -9,6 +9,11 @@ public class TestInteractable : MonoBehaviour, IInteractable
         Debug.Log("Moused over!");
     }
 
+    public void MouseExit()
+    {
+        Debug.Log("Mouse exited!");
+    }
+
     public void Interact()
     {
         Debug.Log("Interacted!");

@@ -5,5 +5,6 @@ using UnityEngine;
 public interface IInteractable
 {
     void MouseOver();
+    void MouseExit();
     void Interact();
 }
