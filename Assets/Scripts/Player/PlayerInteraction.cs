@@ -39,12 +39,12 @@ public class PlayerInteraction : MonoBehaviour
 
         if (_canInteract)
         {
-            _currentInteractable.MouseOver();
+            _currentInteractable?.MouseOver();
         }
 
         if (_canInteract && Input.GetButtonDown("Interact"))
         {
-            _currentInteractable.Interact();
+            _currentInteractable?.Interact();
         }
     }
 
@@ -60,9 +60,16 @@ public class PlayerInteraction : MonoBehaviour
         return null;
     }
 
+    private IEnumerator InteractCoroutine(bool canInteract)
+    {
+        yield return null;
+        _canInteract = canInteract;
+    }
+
     public void SetInteraction(bool canInteract)
     {
-        _canInteract = canInteract;
+        //_canInteract = canInteract;
+        StartCoroutine(InteractCoroutine(canInteract));
     }
 
     public void SetUsingItem(bool usingItem)

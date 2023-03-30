@@ -8,7 +8,9 @@ public class PickUp : MonoBehaviour, IInteractable
 
     [SerializeField] private float attractionForce;
 
-    private bool _pickedUp;
+    private bool _pickedUp = false;
+
+    private bool _firstFrame = true;
 
     private Rigidbody _rb;
 
@@ -21,6 +23,12 @@ public class PickUp : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        if (_pickedUp && _firstFrame)
+        {
+            _firstFrame = false;
+            return;
+        }
+
         if (_pickedUp && Vector3.Distance(transform.position, _playerInteraction.HeldObjectTarget()) > 0.1f)
         {
             Vector3 target = _playerInteraction.HeldObjectTarget();
@@ -53,6 +61,7 @@ public class PickUp : MonoBehaviour, IInteractable
     {
         Debug.Log("Dropped object!");
         _pickedUp = false;
+        _firstFrame = true;
         _playerInteraction.SetInteraction(true);
         _rb.useGravity = true;
         _rb.drag = 1f;
