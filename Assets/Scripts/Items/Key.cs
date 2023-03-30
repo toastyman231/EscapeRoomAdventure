@@ -8,6 +8,8 @@ public class Key : MonoBehaviour, IInteractable, IInventoryItem
     [SerializeField] private string keyDescription;
     [SerializeField] private Sprite icon;
 
+    [SerializeField] private List<GameObject> lockedObjects;
+
     public void MouseOver()
     {
         gameObject.layer = LayerMask.NameToLayer("Outline");
@@ -47,12 +49,24 @@ public class Key : MonoBehaviour, IInteractable, IInventoryItem
 
     public void OnRemoveFromInventory()
     {
-        return;
+        PlayerInteraction interaction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
+        transform.position = interaction.HeldObjectTarget();
+        gameObject.SetActive(true);
     }
 
     public void Use()
     {
-        Debug.Log("Used " + keyName);
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, 10f))
+        {
+            IUnlockable lockedObject = hit.transform.GetComponent<IUnlockable>();
+
+            if (lockedObject != null && lockedObjects.Contains(hit.transform.gameObject))
+            {
+                lockedObject.Unlock();
+                return;
+            }
+        }
+
         DialogueController.InvokeShowDialogueEvent("I don't think this item can be used here...", 5f);
     }
 
