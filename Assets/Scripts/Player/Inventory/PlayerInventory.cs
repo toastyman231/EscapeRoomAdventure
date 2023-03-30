@@ -86,9 +86,9 @@ public class PlayerInventory : MonoBehaviour
     public void PrepareToUseItem(IInventoryItem item)
     {
         _activeItem = item;
-        _interaction.SetUsingItem(true);
         _interaction.SetInteraction(false);
         InteractionUIController.ShowInteractionUi("Use Item");
+        _interaction.SetUsingItem(true);
     }
 
     private void UseActiveItem()

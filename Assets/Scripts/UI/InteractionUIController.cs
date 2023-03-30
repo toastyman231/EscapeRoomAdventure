@@ -12,6 +12,8 @@ public class InteractionUIController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI interactText;
 
+    private PlayerInteraction _playerInteraction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,8 @@ public class InteractionUIController : MonoBehaviour
 
         interactText.enabled = false;
         ShowInteractionUIEvent += SetInteractText;
+
+        _playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
     }
 
     void OnDestroy()
@@ -33,14 +37,10 @@ public class InteractionUIController : MonoBehaviour
         ShowInteractionUIEvent -= SetInteractText;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void SetInteractText(object sender, UIEventArgs args)
     {
+        if (_playerInteraction.UsingItem()) return;
+
         interactText.text = "E - " + args.Text;
         interactText.enabled = true;
     }

@@ -44,7 +44,7 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        if (_canInteract)
+        if (_canInteract || _usingItem)
         {
             _currentInteractable?.MouseOver();
         }
@@ -71,6 +71,11 @@ public class PlayerInteraction : MonoBehaviour
     {
         yield return null;
         _canInteract = canInteract;
+    }
+
+    public bool UsingItem()
+    {
+        return _usingItem;
     }
 
     public void SetInteraction(bool canInteract)
