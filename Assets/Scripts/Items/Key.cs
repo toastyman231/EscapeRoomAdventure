@@ -53,6 +53,7 @@ public class Key : MonoBehaviour, IInteractable, IInventoryItem
     public void Use()
     {
         Debug.Log("Used " + keyName);
+        DialogueController.InvokeShowDialogueEvent("I don't think this item can be used here...", 5f);
     }
 
     public Sprite GetItemSprite()
