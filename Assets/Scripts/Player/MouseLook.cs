@@ -23,6 +23,8 @@ public class MouseLook : MonoBehaviour
         _canLook = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        mouseSensitivity = Mathf.Round(PlayerPrefs.GetFloat("sensitivity", 1f) * 100f);
     }
 
     void Update()
@@ -43,6 +45,11 @@ public class MouseLook : MonoBehaviour
         // Apply the rotation
         Quaternion localRotation = Quaternion.Euler(_rotX, _rotY, 0.0f);
         transform.rotation = localRotation;
+    }
+
+    public void SetSensitivity(float amount)
+    {
+        mouseSensitivity = amount;
     }
 
     public void SetCanLook(bool canLook)

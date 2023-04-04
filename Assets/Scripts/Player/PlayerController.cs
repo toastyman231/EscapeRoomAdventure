@@ -13,17 +13,22 @@ public class PlayerController : MonoBehaviour
 
     private Transform _direction;
 
+    private bool _canMove;
+
     // Start is called before the first frame update
     void Start()
     {
         _controller = GetComponent<CharacterController>();
         _mouseLook = GetComponentInChildren<MouseLook>();
         _direction = transform.GetChild(0);
+        _canMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!_canMove) return;
+
         _controller.Move(Vector3.down * gravity * Time.deltaTime);
         MovePlayer();
 
@@ -53,5 +58,10 @@ public class PlayerController : MonoBehaviour
     public Transform GetDirection()
     {
         return _direction;
+    }
+
+    public void SetCanMove(bool canMove)
+    {
+        _canMove = canMove;
     }
 }

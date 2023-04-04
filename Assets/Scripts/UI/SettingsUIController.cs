@@ -7,9 +7,6 @@ public class SettingsUIController : MonoBehaviour
     [SerializeField] private GameObject objectsToShow;
     [SerializeField] private GameObject objectsToHide;
 
-    [SerializeField] private float hideX;
-    [SerializeField] private float showX;
-
     [SerializeField] private float showTime;
     [SerializeField] private float hideTime;
 
@@ -21,10 +18,10 @@ public class SettingsUIController : MonoBehaviour
         showXOriginal = objectsToShow.transform.position.x;
         hideXOriginal = objectsToHide.transform.position.x;
         
-        LeanTween.moveX(objectsToHide, hideX, hideTime)
+        LeanTween.moveX(objectsToHide, -Screen.width, hideTime)
             .setOnComplete(() =>
             {
-                LeanTween.moveX(objectsToShow, showX, showTime);
+                LeanTween.moveX(objectsToShow, Screen.width / 2f, showTime);
             });
     }
 
