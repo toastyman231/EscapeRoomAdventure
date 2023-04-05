@@ -52,10 +52,10 @@ public class MouseLook : MonoBehaviour
         mouseSensitivity = amount;
     }
 
-    public void SetCanLook(bool canLook)
+    public void SetCanLook(bool canLook, bool showCursor = true, bool unlockCursor = true)
     {
         _canLook = canLook;
-        Cursor.visible = !canLook;
-        Cursor.lockState = (canLook) ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = (!canLook && showCursor);
+        Cursor.lockState = (canLook && unlockCursor) ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }

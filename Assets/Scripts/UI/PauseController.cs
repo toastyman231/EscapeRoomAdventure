@@ -6,6 +6,8 @@ public class PauseController : MonoBehaviour
 {
     public bool Paused { get; private set; }
 
+    public bool CanPause { get; set; }
+
     [SerializeField] private Canvas pauseCanvas;
 
     [SerializeField] private MouseLook mouseLook;
@@ -16,12 +18,13 @@ public class PauseController : MonoBehaviour
     void Start()
     {
         Paused = false;
+        CanPause = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (CanPause && Input.GetButtonDown("Cancel"))
         {
             TogglePause();
         }
@@ -30,6 +33,7 @@ public class PauseController : MonoBehaviour
     private void TogglePause()
     {
         Paused = !Paused;
+        controller.SetInventoryAvailable(!Paused);
         pauseCanvas.enabled = Paused;
         mouseLook.SetCanLook(!Paused);
         controller.SetCanMove(!Paused);

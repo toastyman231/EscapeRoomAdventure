@@ -17,6 +17,11 @@ public class MenuOptions : MonoBehaviour
         settings.ShowUI();
     }
 
+    public void TryAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void QuitGame()
     {
 #if UNITY_EDITOR

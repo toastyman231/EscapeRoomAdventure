@@ -77,6 +77,7 @@ public class InventoryUIController : MonoBehaviour
     {
         inventoryCanvas.enabled = true;
         ShowingInventory = true;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PauseController>().CanPause = false;
         PopulateInventoryList();
         SetupInfoPanel();
     }
@@ -84,6 +85,7 @@ public class InventoryUIController : MonoBehaviour
     private void HideInventoryUI(object sender, EventArgs args)
     {
         inventoryCanvas.enabled = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PauseController>().CanPause = true;
         _selectedItem = null;
         ShowingInventory = false;
     }

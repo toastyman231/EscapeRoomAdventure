@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     private bool _canMove;
 
+    private bool _inventoryAvailable;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
         _mouseLook = GetComponentInChildren<MouseLook>();
         _direction = transform.GetChild(0);
         _canMove = true;
+        _inventoryAvailable = true;
     }
 
     // Update is called once per frame
@@ -32,7 +35,7 @@ public class PlayerController : MonoBehaviour
         _controller.Move(Vector3.down * gravity * Time.deltaTime);
         MovePlayer();
 
-        if (Input.GetButtonDown("Inventory"))
+        if (_inventoryAvailable && Input.GetButtonDown("Inventory"))
         {
             if (InventoryUIController.ShowingInventory)
             {
@@ -63,5 +66,10 @@ public class PlayerController : MonoBehaviour
     public void SetCanMove(bool canMove)
     {
         _canMove = canMove;
+    }
+
+    public void SetInventoryAvailable(bool inv)
+    {
+        _inventoryAvailable = inv;
     }
 }

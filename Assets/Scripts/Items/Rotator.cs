@@ -6,13 +6,13 @@ public class Rotator : MonoBehaviour, IInteractable
 {
     [SerializeField] private CombinationLock comboLock;
 
+    [SerializeField] private GameObject outlineObject;
+
     [SerializeField] private float rotateDuration;
 
-    private Quaternion _targetRot;
+    [ShowOnly] [SerializeField] private int _currentValue = 0;
 
     private bool _canRotate = true;
-
-    private int _currentValue = 0;
 
     private float _rotX = 0;
 
@@ -20,39 +20,40 @@ public class Rotator : MonoBehaviour, IInteractable
     {
         if (!_canRotate) return;
 
+        _canRotate = false;
         _rotX = GetNewRotation(_rotX);
-        Quaternion newRotation = Quaternion.Euler(_rotX, 0f, 0f);
-        //LeanTween.value(transform.parent.gameObject, RotateCylinderCallback, transform.parent.rotation, newRotation, rotateDuration);
-        //Debug.Log("New rotation: " + _rotX);
-        //LeanTween.rotateX(transform.parent.gameObject, _rotX, rotateDuration);
-        //transform.parent.eulerAngles = new Vector3(_rotX, 0f, 0f);
-        //LeanTween.rotate(transform.parent.gameObject, new Vector3(_rotX, 0f, 0f), rotateDuration);
-        //StartCoroutine(RotateCylinder());
-        //_targetRot = Quaternion.Euler(_rotX, 0f, 0f);
-        //_canRotate = false;
-        //Debug.Log("From " + transform.parent.eulerAngles.x + " to " + _rotX);
-        //LeanTween.value(gameObject, RotateCylinderCallback, transform.parent.eulerAngles.x, _rotX, rotateDuration)
-        //    .setOnComplete(() =>
-        //{
-        //    _currentValue++;
-        //    _canRotate = true;
-        //});
+        LeanTween.value(gameObject, RotateCylinderCallback, _rotX + 36f, _rotX, rotateDuration).setOnComplete(OnRotate);
     }
 
     public void MouseExit()
     {
-        transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("Default");
+        outlineObject.layer = LayerMask.NameToLayer("Default");
     }
 
     public void MouseOver()
     {
-        transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("Outline");
+        outlineObject.layer = LayerMask.NameToLayer("Outline");
         InteractionUIController.ShowInteractionUi("Rotate");
     }
 
-    private void LateUpdate()
+    public void LockRotator()
     {
-        //transform.parent.eulerAngles = new Vector3(transform.parent.eulerAngles.x, 0f, 0f);
+        _canRotate = false;
+        gameObject.layer = LayerMask.NameToLayer("Default");
+    }
+
+    public int GetValue()
+    {
+        return _currentValue;
+    }
+
+    private void OnRotate()
+    {
+        _currentValue++;
+        if (_currentValue > 9) _currentValue = 0;
+        comboLock.CheckCombination();
+
+        _canRotate = true;
     }
 
     private float GetNewRotation(float current)
@@ -72,18 +73,8 @@ public class Rotator : MonoBehaviour, IInteractable
         return newRotation;
     }
 
-    private IEnumerator RotateCylinder()
+    private void RotateCylinderCallback(float value)
     {
-        while (transform.parent.eulerAngles.x != _rotX)
-        {
-            transform.parent.Rotate(new Vector3(-36f, 0f, 0f) * rotateDuration * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    private void RotateCylinderCallback(Quaternion value)
-    {
-        //Debug.Log(value);
-        transform.rotation = value;
+        transform.eulerAngles = new Vector3(value, comboLock.transform.eulerAngles.y, comboLock.transform.eulerAngles.z);
     }
 }
