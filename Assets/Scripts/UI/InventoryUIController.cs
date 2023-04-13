@@ -58,6 +58,7 @@ public class InventoryUIController : MonoBehaviour
         PlayerInventory.Instance.PrepareToUseItem(_selectedItem);
         InvokeHideInventory();
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<MouseLook>().SetCanLook(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetCanMove(true);
     }
 
     public void DropItem()
@@ -65,6 +66,7 @@ public class InventoryUIController : MonoBehaviour
         PlayerInventory.Instance.RemoveItem(_selectedItem);
         InvokeHideInventory();
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<MouseLook>().SetCanLook(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetCanMove(true);
     }
 
     private void UpdateInfoPanel(object sender, InfoEventArgs args)

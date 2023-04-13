@@ -30,24 +30,26 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_canMove) return;
-
-        _controller.Move(Vector3.down * gravity * Time.deltaTime);
-        MovePlayer();
-
         if (_inventoryAvailable && Input.GetButtonDown("Inventory"))
         {
             if (InventoryUIController.ShowingInventory)
             {
                 InventoryUIController.InvokeHideInventory();
                 _mouseLook.SetCanLook(true);
+                SetCanMove(true);
             }
             else
             {
                 InventoryUIController.InvokeShowInventory();
                 _mouseLook.SetCanLook(false);
+                SetCanMove(false);
             }
         }
+
+        if (!_canMove) return;
+
+        _controller.Move(Vector3.down * gravity * Time.deltaTime);
+        MovePlayer();
     }
 
     private void MovePlayer()

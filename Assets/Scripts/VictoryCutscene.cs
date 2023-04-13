@@ -30,7 +30,19 @@ public class VictoryCutscene : MonoBehaviour
         PlayerController controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         controller.SetCanMove(false);
         controller.SetInventoryAvailable(false);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PauseController>().CanPause = false;
+
+        if (InventoryUIController.ShowingInventory)
+        {
+            InventoryUIController.InvokeHideInventory();
+        }
+
+        PauseController pauseController = GameObject.FindGameObjectWithTag("Player").GetComponent<PauseController>();
+        if (pauseController.Paused)
+        {
+            pauseController.HidePause();
+        }
+        pauseController.CanPause = false;
+
         Camera.main.GetComponent<MouseLook>().SetCanLook(false, false, false);
         LeanTween.move(Camera.main.gameObject, cameraTarget.position, moveDuration).setOnComplete(Victory);
         LeanTween.rotate(Camera.main.gameObject, 
