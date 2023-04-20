@@ -1,0 +1,11 @@
+4 weights, 1 locked behind puzzle
+
+Weights - 1, 5, 7, 10
+
+Must find weight of the 7-weight to get code for door
+
+Logic puzzle where 4 people own the weights, must figure out which weights in the game
+correspond with the weights in the puzzle by weighing them
+
+Once you figure out which weight is which, solving the puzzle will tell you the exact weight
+of the 7-weight, giving you the solution.
