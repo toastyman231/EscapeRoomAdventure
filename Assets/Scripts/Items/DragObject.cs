@@ -23,7 +23,6 @@ public class DragObject : MonoBehaviour, IInteractable
                 _rb.drag = 1f;
                 _rb.useGravity = false;
                 GetComponent<MeshRenderer>().material = notHoveredMaterial;
-                Debug.Log("Disabled drag!");
             }
             _canDrag = value;
         }

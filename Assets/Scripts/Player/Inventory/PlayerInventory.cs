@@ -91,6 +91,11 @@ public class PlayerInventory : MonoBehaviour
         _interaction.SetUsingItem(true);
     }
 
+    public IInventoryItem GetActiveItem()
+    {
+        return _activeItem;
+    }
+
     private void UseActiveItem()
     {
         if (_activeItem != null) _activeItem.Use();

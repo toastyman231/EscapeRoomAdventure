@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
         _direction = transform.GetChild(0);
         _canMove = true;
         _inventoryAvailable = true;
+
+        StartCoroutine(ShowTutorialDialogue());
     }
 
     // Update is called once per frame
@@ -50,6 +52,13 @@ public class PlayerController : MonoBehaviour
 
         _controller.Move(Vector3.down * gravity * Time.deltaTime);
         MovePlayer();
+    }
+
+    private IEnumerator ShowTutorialDialogue()
+    {
+        yield return null;
+
+        DialogueController.InvokeShowDialogueEvent("I feel like I can press <color=\"red\">Tab<color=\"white\"> to access my inventory...", 5f);
     }
 
     private void MovePlayer()
