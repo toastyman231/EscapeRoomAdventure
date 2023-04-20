@@ -16,6 +16,8 @@ public class ScalePlate : MonoBehaviour, IInteractable
 
     private PlayerInteraction _playerInteraction;
 
+    private float _lastWeight = 0f;
+
     private void Start()
     {
         _weights = new List<GameObject>();
@@ -26,7 +28,7 @@ public class ScalePlate : MonoBehaviour, IInteractable
     {
         float moveTo = Mathf.Clamp(gameObject.transform.localPosition.y + (amount / myScale.WeightScale), myScale.YMin, myScale.YMax);
         Debug.Log("Moving to: " + moveTo);
-        LeanTween.moveLocalY(gameObject, moveTo, moveDuration).setDelay(2.5f);
+        LeanTween.moveLocalY(gameObject, moveTo, moveDuration);
     }
 
     public void MouseOver()
@@ -64,11 +66,38 @@ public class ScalePlate : MonoBehaviour, IInteractable
     {
         if (_weights.Count < weightLocations.Length)
         {
-            
+            TotalWeight += weight.GetComponent<Weight>().GetWeight();
             _weights.Add(weight);
+            weight.transform.parent = weightLocations[_weights.IndexOf(weight)];
+            weight.transform.position = weight.transform.parent.position;
+
+            float difference = _lastWeight - TotalWeight;
+
+            MovePlate(difference);
+            myScale.MoveOppositeScale(this, difference);
+            _lastWeight = TotalWeight;
             return true;
         }
 
         return false;
+    }
+
+    public bool RemoveWeight(GameObject weight)
+    {
+        if (!_weights.Contains(weight))
+        {
+            Debug.Log("Weight not in list!");
+            return false;
+        }
+
+        TotalWeight -= weight.GetComponent<Weight>().GetWeight();
+        _weights.Remove(weight);
+
+        float difference = _lastWeight - TotalWeight;
+
+        MovePlate(difference);
+        myScale.MoveOppositeScale(this, difference);
+        _lastWeight = TotalWeight;
+        return true;
     }
 }

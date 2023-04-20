@@ -8,9 +8,13 @@ public class Weight : MonoBehaviour, IInteractable, IInventoryItem
     [SerializeField] private string itemDescription;
     [SerializeField] private Sprite icon;
 
+    [SerializeField] private List<GameObject> outlineObjects;
+
     [SerializeField] private float weight;
 
-    private Rigidbody _rb;
+    private bool _onScale = false;
+
+    private ScalePlate _currentScalePlate;
 
     public IInventoryItem GetItem()
     {
@@ -32,6 +36,11 @@ public class Weight : MonoBehaviour, IInteractable, IInventoryItem
         return icon;
     }
 
+    public float GetWeight()
+    {
+        return weight;
+    }
+
     public void Interact()
     {
         if (PlayerInventory.Instance.AddItem(this))
@@ -40,11 +49,19 @@ public class Weight : MonoBehaviour, IInteractable, IInventoryItem
 
     public void MouseExit()
     {
+        foreach (GameObject outline in outlineObjects)
+        {
+            outline.layer = LayerMask.NameToLayer("Default");
+        }
         gameObject.layer = LayerMask.NameToLayer("Interact");
     }
 
     public void MouseOver()
     {
+        foreach (GameObject outline in outlineObjects)
+        {
+            outline.layer = LayerMask.NameToLayer("Outline");
+        }
         gameObject.layer = LayerMask.NameToLayer("Outline");
 
         InteractionUIController.ShowInteractionUi("Pick Up " + itemName);
@@ -52,13 +69,17 @@ public class Weight : MonoBehaviour, IInteractable, IInventoryItem
 
     public void OnAddToInventory()
     {
-        return;
+        if (_onScale)
+        {
+            _onScale = false;
+            transform.parent = null;
+            _currentScalePlate.RemoveWeight(gameObject);
+            _currentScalePlate = null;
+        }
     }
 
     public void OnRemoveFromInventory()
     {
-        _rb.isKinematic = true;
-        _rb.useGravity = false;
         gameObject.SetActive(true);
     }
 
@@ -70,24 +91,19 @@ public class Weight : MonoBehaviour, IInteractable, IInventoryItem
 
             if (hitPlate != null)
             {
+                if (!hitPlate.AddWeight(gameObject))
+                {
+                    DialogueController.InvokeShowDialogueEvent("This side of the scale is full...", 3f);
+                    return;
+                }
+
                 PlayerInventory.Instance.RemoveItem(this);
-                gameObject.transform.position = hitPlate.transform.position;
+                _onScale = true;
+                _currentScalePlate = hitPlate;
                 return;
             }
         }
 
         DialogueController.InvokeShowDialogueEvent("I don't think this item can be used here...", 5f);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
