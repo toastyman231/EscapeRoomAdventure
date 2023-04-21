@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9672759bdc3d443a1777d6377472d8, type: 3}
+  m_Name: LogicPuzzle
+  m_EditorClassIdentifier: 
+  text: "Kevin, Daniel, Brandon, and Stella are attending a party, and each of them
+    have brought a gift for the host. Their gifts are all different, and each of
+    them weighs a different amount. Additionally, they are each wearing a different
+    color outfit, and each drove a different car to the party.\\\\n\\\\nKevin, whose
+    item weighs 5 units, begins to brag that he drives the fanciest car. Stella is
+    wearing a green suit, and she remarks that at least she\u2019s not driving the
+    Toyota. Daniel, who does not drive a Honda and did not bring the golden apple,
+    arrives and thinks to himself that he\u2019s glad he\u2019s not the one wearing
+    the ugly purple suit. Brandon arrives last and notices that he brought the lightest
+    gift.\\\\n\\\\nHearing this, the guest wearing blue realizes they brought a gift
+    lighter than at least two other gifts. The guest wearing purple interrupts to
+    comment that their gift is heavier than only one other person\u2019s gift. The
+    guest driving the Honda, who is wearing a primary color, asks the others how
+    much their gifts weigh. The guest driving the Chevy does a few quick measurements
+    and announces their gift is heavier than Kevin\u2019s gift, but lighter than
+    Daniel\u2019s gift. The guest driving the BMW and the guest in red weigh their
+    gifts and are pleased to find that they add up to a nice 15 units.\\\\n\\\\nBy
+    the end of the party, Stella\u2019s gift has been stolen. The weight of her item
+    is the third digit of the combination. "

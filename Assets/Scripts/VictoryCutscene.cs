@@ -23,7 +23,7 @@ public class VictoryCutscene : MonoBehaviour
     public void StartCutscene()
     {
         timer.StopTimer();
-        TimeSpan gameTime = TimeSpan.FromSeconds(timer.GetTimeLimit() - timer.GetGameTime().Seconds);
+        TimeSpan gameTime = TimeSpan.FromSeconds(timer.GetTimeLimit() - timer.GetGameTime().TotalSeconds);
 
         victoryText.text = $"You escaped!\nYour time: {gameTime.Minutes:D2}m:{gameTime.Seconds:D2}s";
 

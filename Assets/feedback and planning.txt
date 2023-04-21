@@ -1,0 +1,10 @@
+Mention all items and cars in the puzzle
+Make it clear how many items can fit on the scale
+
+about 15-20 mins seems like a good amount of time
+
+puzzles:
+
+digit 1: First maze solution -> PUZZLE HERE
+digit 2: Color puzzle -> Unlocks second maze solution
+digit 3: Rotating cylinder puzzle -> Second maze solution -> logic/scale puzzle

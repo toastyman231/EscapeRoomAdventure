@@ -47,7 +47,7 @@ public class ScalePlate : MonoBehaviour, IInteractable
     {
         foreach (GameObject obj in _weights)
         {
-            obj.layer = LayerMask.NameToLayer("Default");
+            obj.layer = LayerMask.NameToLayer("Interact");
         }
 
         gameObject.layer = LayerMask.NameToLayer("Interact");
