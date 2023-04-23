@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Axe : MonoBehaviour, IInteractable, IInventoryItem
 {
+    [SerializeField] private GameObject[] outlineObjects;
+
     [SerializeField] private string itemName;
 
     [SerializeField] private string itemDescription;
@@ -19,14 +21,20 @@ public class Axe : MonoBehaviour, IInteractable, IInventoryItem
 
     public void MouseOver()
     {
-        gameObject.layer = LayerMask.NameToLayer("Outline");
+        foreach (GameObject obj in outlineObjects)
+        {
+            obj.layer = LayerMask.NameToLayer("Outline");
+        }
 
         InteractionUIController.ShowInteractionUi("Pick Up " + itemName);
     }
 
     public void MouseExit()
     {
-        gameObject.layer = LayerMask.NameToLayer("Interact");
+        foreach (GameObject obj in outlineObjects)
+        {
+            obj.layer = LayerMask.NameToLayer("Default");
+        }
     }
 
     public void Interact()

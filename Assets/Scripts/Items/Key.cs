@@ -8,6 +8,8 @@ public class Key : MonoBehaviour, IInteractable, IInventoryItem
     [SerializeField] private string keyDescription;
     [SerializeField] private Sprite icon;
 
+    [SerializeField] private GameObject[] outlineObjects;
+
     [SerializeField] private List<GameObject> lockedObjects;
 
     private PlayerInteraction _interaction;
@@ -19,13 +21,20 @@ public class Key : MonoBehaviour, IInteractable, IInventoryItem
 
     public void MouseOver()
     {
-        gameObject.layer = LayerMask.NameToLayer("Outline");
+        foreach (GameObject obj in outlineObjects)
+        {
+            obj.layer = LayerMask.NameToLayer("Outline");
+        }
+
         InteractionUIController.ShowInteractionUi("Pick Up " + keyName);
     }
 
     public void MouseExit()
     {
-        gameObject.layer = LayerMask.NameToLayer("Interact");
+        foreach (GameObject obj in outlineObjects)
+        {
+            obj.layer = LayerMask.NameToLayer("Default");
+        }
     }
 
     public void Interact()
