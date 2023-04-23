@@ -136,6 +136,17 @@ public class SequenceKeypad : MonoBehaviour
         _currentGuessIndex = 0;
     }
 
+    public void BackOut()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<MouseLook>().SetCanLook(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetCanMove(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetInventoryAvailable(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInteraction>().SetInteraction(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PauseController>().CanPause = true;
+
+        SceneManager.UnloadSceneAsync("SequenceGame");
+    }
+
     public void AddDigit(int digit)
     {
         if (_currentGuessIndex > 2 || !_canGuess) return;

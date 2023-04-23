@@ -12,6 +12,8 @@ public class DragObject : MonoBehaviour, IInteractable
 
     [SerializeField] private float waitTime;
 
+    private Vector3 _startPos;
+
     public bool CanDrag 
     {
         get => _canDrag;
@@ -61,6 +63,13 @@ public class DragObject : MonoBehaviour, IInteractable
         _rb.drag = 10f;
     }
 
+    public void ResetObject()
+    {
+        transform.localPosition = _startPos;
+        _rb.isKinematic = false;
+        CanDrag = true;
+    }
+
     private IEnumerator StopObject()
     {
         yield return new WaitForSeconds(waitTime);
@@ -75,6 +84,7 @@ public class DragObject : MonoBehaviour, IInteractable
     // Start is called before the first frame update
     void Start()
     {
+        _startPos = transform.localPosition;
         _rb = GetComponent<Rigidbody>();
         _playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
         CanDrag = true;

@@ -45,12 +45,12 @@ public class KeypadInteractable : MonoBehaviour, IInteractable
     {
         if (_keyPadUsed) return;
 
-        _keyPadUsed = true;
         SceneManager.LoadSceneAsync(sceneToAdd, LoadSceneMode.Additive);
 
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<MouseLook>().SetCanLook(false);
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetCanMove(false);
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetInventoryAvailable(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInteraction>().SetInteraction(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<PauseController>().CanPause = false;
     }
 
@@ -59,8 +59,11 @@ public class KeypadInteractable : MonoBehaviour, IInteractable
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<MouseLook>().SetCanLook(true);
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetCanMove(true);
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetInventoryAvailable(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInteraction>().SetInteraction(true);
         GameObject.FindGameObjectWithTag("Player").GetComponent<PauseController>().CanPause = true;
 
+        _keyPadUsed = true;
+        gameObject.layer = LayerMask.NameToLayer("Default");
         MouseExit();
     }
 }
