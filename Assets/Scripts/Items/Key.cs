@@ -10,6 +10,13 @@ public class Key : MonoBehaviour, IInteractable, IInventoryItem
 
     [SerializeField] private List<GameObject> lockedObjects;
 
+    private PlayerInteraction _interaction;
+
+    private void Start()
+    {
+        _interaction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
+    }
+
     public void MouseOver()
     {
         gameObject.layer = LayerMask.NameToLayer("Outline");
@@ -44,13 +51,13 @@ public class Key : MonoBehaviour, IInteractable, IInventoryItem
 
     public void OnAddToInventory()
     {
+        _interaction.PlayPickupSound();
         return;
     }
 
     public void OnRemoveFromInventory()
     {
-        PlayerInteraction interaction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
-        transform.position = interaction.HeldObjectTarget();
+        transform.position = _interaction.HeldObjectTarget();
         GetComponent<Rigidbody>().isKinematic = false;
         gameObject.SetActive(true);
     }

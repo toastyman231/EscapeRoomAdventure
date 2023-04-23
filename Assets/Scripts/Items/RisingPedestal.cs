@@ -10,6 +10,9 @@ public class RisingPedestal : MonoBehaviour
 
     public void InvokePedestalRise()
     {
-        LeanTween.moveLocal(gameObject, moveToLocation, moveTime);
+        LeanTween.moveLocal(gameObject, moveToLocation, moveTime).setOnComplete(() =>
+        {
+            GetComponent<AudioSource>()?.Stop();
+        });
     }
 }

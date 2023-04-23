@@ -9,6 +9,8 @@ public class JeffersonDisk : MonoBehaviour, IInteractable
 
     [SerializeField] private GameObject[] rotatingCylinders;
 
+    [SerializeField] private AudioClip rotateSound;
+
     [SerializeField] private Transform cameraPosition;
 
     [SerializeField] private Canvas controlCanvas;
@@ -22,6 +24,13 @@ public class JeffersonDisk : MonoBehaviour, IInteractable
     private Transform _originalCameraPos;
 
     private bool _puzzleActive = false;
+
+    private AudioSource _audioSource;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     public void OnOverallRotated()
     {
@@ -73,6 +82,9 @@ public class JeffersonDisk : MonoBehaviour, IInteractable
 
         cylinder.CanRotate = false;
 
+        _audioSource.clip = rotateSound;
+        _audioSource.Play();
+
         GameObject cylinderObject = cylinder.transform.GetChild(0).gameObject;
         float newY = GetNewRotation(cylinderObject.transform.localEulerAngles.y, index > 0);
         Debug.Log("Rotating to " + newY);
@@ -86,12 +98,12 @@ public class JeffersonDisk : MonoBehaviour, IInteractable
     public void ExitPuzzle()
     {
         _puzzleActive = false;
+        controlCanvas.enabled = false;
 
         LeanTween.moveLocal(Camera.main.gameObject, new Vector3(0, 0.5f, 0), transitionTime).setOnComplete(
             () =>
             {
                 GetComponent<BoxCollider>().enabled = true;
-                controlCanvas.enabled = false;
                 Crosshair.InvokeToggleCrossHairEvent();
                 gameObject.layer = LayerMask.NameToLayer("Interact");
                 GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInteraction>().SetInteraction(true);

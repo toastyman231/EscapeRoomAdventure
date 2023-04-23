@@ -25,6 +25,18 @@ public class SequenceKeypad : MonoBehaviour
 
     [SerializeField] private Color defaultColor;
 
+    [SerializeField] private AudioClip removeRowSound;
+
+    [SerializeField] private AudioClip readySound;
+
+    [SerializeField] private AudioClip validKeyPressSound;
+
+    [SerializeField] private AudioClip invalidKeyPressSound;
+
+    [SerializeField] private AudioClip incorrectSolutionSound;
+
+    [SerializeField] private AudioClip correctSolutionSound;
+
     [SerializeField] private float showTime;
 
     [SerializeField] private float resetTime;
@@ -34,6 +46,8 @@ public class SequenceKeypad : MonoBehaviour
     [SerializeField] private LayerMask layers;
 
     private IObjectPool<GameObject> _results;
+
+    private AudioSource _audioSource;
 
     private int[] _currentSequence;
 
@@ -45,6 +59,7 @@ public class SequenceKeypad : MonoBehaviour
 
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         LeanTween.scaleY(transform.GetChild(0).gameObject, 1, showTime);
         _results = new ObjectPool<GameObject>(CreateSequenceRow, OnTakeFromPool, 
             OnReturnedToPool, OnDestroyPoolObject, true, 4, numGuesses);
@@ -61,6 +76,8 @@ public class SequenceKeypad : MonoBehaviour
 
         foreach (Transform child in resultsPanel.transform)
         {
+            _audioSource.clip = removeRowSound;
+            _audioSource.Play();
             _results.Release(child.gameObject);
             if (timedReset) yield return new WaitForSeconds(resetTime);
         }
@@ -71,12 +88,23 @@ public class SequenceKeypad : MonoBehaviour
         }
 
         SetSelector();
+
+        _audioSource.clip = readySound;
+        _audioSource.Play();
         _canGuess = true;
     }
 
     public void SubmitPuzzle()
     {
-        if (_currentGuessIndex < 3 || !_canGuess) return;
+        if (_currentGuessIndex < 3 || !_canGuess)
+        {
+            _audioSource.clip = invalidKeyPressSound;
+            _audioSource.Play();
+            return;
+        }
+
+        _audioSource.clip = validKeyPressSound;
+        _audioSource.Play();
 
         int index = 0;
         foreach (Transform child in resultsPanel.transform.GetChild(_currentGuess))
@@ -138,6 +166,9 @@ public class SequenceKeypad : MonoBehaviour
 
     public void BackOut()
     {
+        _audioSource.clip = validKeyPressSound;
+        _audioSource.Play();
+
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<MouseLook>().SetCanLook(true);
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetCanMove(true);
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetInventoryAvailable(true);
@@ -149,15 +180,30 @@ public class SequenceKeypad : MonoBehaviour
 
     public void AddDigit(int digit)
     {
-        if (_currentGuessIndex > 2 || !_canGuess) return;
+        if (_currentGuessIndex > 2 || !_canGuess)
+        {
+            _audioSource.clip = invalidKeyPressSound;
+            _audioSource.Play();
+            return;
+        }
 
+        _audioSource.clip = validKeyPressSound;
+        _audioSource.Play();
         _currentSequence[_currentGuessIndex++] = digit;
         UpdateSequence();
     }
 
     public void ClearGuess()
     {
-        if (!_canGuess) return;
+        if (!_canGuess)
+        {
+            _audioSource.clip = invalidKeyPressSound;
+            _audioSource.Play();
+            return;
+        }
+
+        _audioSource.clip = validKeyPressSound;
+        _audioSource.Play();
 
         _currentGuessIndex = 0;
         _currentSequence = new int[3];
@@ -202,9 +248,13 @@ public class SequenceKeypad : MonoBehaviour
         if (_currentSequence[0] == correctSequence[0] && _currentSequence[1] == correctSequence[1] &&
             _currentSequence[2] == correctSequence[2])
         {
+            _audioSource.clip = correctSolutionSound;
+            _audioSource.Play();
             return true;
         }
 
+        _audioSource.clip = incorrectSolutionSound;
+        _audioSource.Play();
         return false;
     }
 

@@ -8,6 +8,14 @@ public class PaperInteractable : MonoBehaviour, IInteractable
     [SerializeField] private string itemName;
     [SerializeField] private GameObject paperCanvas;
     [SerializeField] private PaperText paperText;
+    [SerializeField] private AudioClip paperSound;
+
+    private AudioSource _audioSource;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     public void MouseOver()
     {
@@ -23,6 +31,8 @@ public class PaperInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        _audioSource.clip = paperSound;
+        _audioSource.Play();
         InteractionUIController.HideInteractionUi();
         paperCanvas.GetComponentInChildren<TextMeshProUGUI>().text = paperText.text.Replace("\\\\n", "\n");
         paperCanvas.SetActive(true);

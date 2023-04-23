@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Box : MonoBehaviour, IInteractable, IUnlockable
 {
@@ -13,6 +14,8 @@ public class Box : MonoBehaviour, IInteractable, IUnlockable
     [SerializeField] private float openAngle;
 
     [SerializeField] private float openTime;
+
+    [SerializeField] private UnityEvent onOpened;
 
     public void MouseOver()
     {
@@ -44,6 +47,7 @@ public class Box : MonoBehaviour, IInteractable, IUnlockable
             .setOnComplete(() =>
             {
                 lid.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = unlockedMaterial;
+                onOpened?.Invoke();
             });
     }
 }

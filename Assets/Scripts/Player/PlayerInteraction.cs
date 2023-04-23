@@ -7,6 +7,9 @@ public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private float interactDistance;
     [SerializeField] private LayerMask interactLayer;
+    [SerializeField] private AudioClip pickupSound;
+
+    private AudioSource _audioSource;
 
     private IInteractable _currentInteractable;
 
@@ -23,6 +26,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         _canInteract = true;
         _usingItem = false;
+        _audioSource = GetComponent<AudioSource>();
         _controller = GetComponent<PlayerController>();
     }
 
@@ -82,6 +86,12 @@ public class PlayerInteraction : MonoBehaviour
     {
         //_canInteract = canInteract;
         StartCoroutine(InteractCoroutine(canInteract));
+    }
+
+    public void PlayPickupSound()
+    {
+        _audioSource.clip = pickupSound;
+        _audioSource.Play();
     }
 
     public void SetUsingItem(bool usingItem)

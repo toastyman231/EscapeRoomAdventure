@@ -16,6 +16,13 @@ public class Weight : MonoBehaviour, IInteractable, IInventoryItem
 
     private ScalePlate _currentScalePlate;
 
+    private PlayerInteraction _interaction;
+
+    private void Start()
+    {
+        _interaction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
+    }
+
     public IInventoryItem GetItem()
     {
         return this;
@@ -69,6 +76,7 @@ public class Weight : MonoBehaviour, IInteractable, IInventoryItem
 
     public void OnAddToInventory()
     {
+        _interaction.PlayPickupSound();
         if (_onScale)
         {
             _onScale = false;

@@ -8,11 +8,15 @@ public class DragObject : MonoBehaviour, IInteractable
 
     [SerializeField] private Material notHoveredMaterial;
 
+    [SerializeField] private AudioClip hoverSound;
+
     [SerializeField] private float attractionForce;
 
     [SerializeField] private float waitTime;
 
     private Vector3 _startPos;
+
+    private AudioSource _audioSource;
 
     public bool CanDrag 
     {
@@ -58,6 +62,7 @@ public class DragObject : MonoBehaviour, IInteractable
         _mousedOver = true;
         if (_pickedUp) return;
 
+        _audioSource.Play();
         GetComponent<MeshRenderer>().material = hoveredMaterial;
         _pickedUp = true;
         _rb.drag = 10f;
@@ -76,6 +81,7 @@ public class DragObject : MonoBehaviour, IInteractable
 
         if (_mousedOver) yield return null;
 
+        _audioSource.Pause();
         _pickedUp = false;
         GetComponent<MeshRenderer>().material = notHoveredMaterial;
         _rb.drag = 1f;
@@ -86,6 +92,8 @@ public class DragObject : MonoBehaviour, IInteractable
     {
         _startPos = transform.localPosition;
         _rb = GetComponent<Rigidbody>();
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = hoverSound;
         _playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
         CanDrag = true;
     }

@@ -15,7 +15,16 @@ public class ButtonInteractable : MonoBehaviour, IInteractable
 
     [SerializeField] private MeshRenderer _renderer;
 
+    [SerializeField] private AudioClip pressSound;
+
+    private AudioSource _audioSource;
+
     private bool _pressed;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     public void MouseOver()
     {
@@ -32,6 +41,9 @@ public class ButtonInteractable : MonoBehaviour, IInteractable
     {
         if (toggleButton)
         {
+            _audioSource.clip = pressSound;
+            _audioSource.Play();
+
             if (!_pressed)
             {
                 _pressed = true;
@@ -52,6 +64,9 @@ public class ButtonInteractable : MonoBehaviour, IInteractable
         {
             if (!_pressed)
             {
+                _audioSource.clip = pressSound;
+                _audioSource.Play();
+
                 _pressed = true;
                 LeanTween.moveLocalY(_renderer.gameObject, 0.009f, 0.2f).setOnComplete(() =>
                 {

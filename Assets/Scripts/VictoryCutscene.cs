@@ -20,6 +20,13 @@ public class VictoryCutscene : MonoBehaviour
 
     [SerializeField] private float uiDuration;
 
+    [SerializeField] private AudioClip doorSound;
+
+    private void Start()
+    {
+        GetComponent<AudioSource>().clip = doorSound;
+    }
+
     public void StartCutscene()
     {
         timer.StopTimer();
@@ -56,6 +63,7 @@ public class VictoryCutscene : MonoBehaviour
             {
                 Camera.main.GetComponent<MouseLook>().SetCanLook(false);
                 LeanTween.scaleY(victoryUI, 1f, uiDuration);
+                GetComponent<AudioSource>().Stop();
             });
     }
 }

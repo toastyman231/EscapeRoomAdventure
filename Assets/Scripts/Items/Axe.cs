@@ -10,6 +10,13 @@ public class Axe : MonoBehaviour, IInteractable, IInventoryItem
 
     [SerializeField] private Sprite itemIcon;
 
+    private PlayerInteraction _interaction;
+
+    private void Start()
+    {
+        _interaction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
+    }
+
     public void MouseOver()
     {
         gameObject.layer = LayerMask.NameToLayer("Outline");
@@ -45,7 +52,7 @@ public class Axe : MonoBehaviour, IInteractable, IInventoryItem
 
     public void OnAddToInventory()
     {
-        return;
+        _interaction.PlayPickupSound();
     }
 
     public void OnRemoveFromInventory()

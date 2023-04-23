@@ -11,6 +11,21 @@ public class CombinationLock : MonoBehaviour
 
     [SerializeField] private UnityEvent onUnlocked;
 
+    [SerializeField] private AudioClip rotateSound;
+
+    private AudioSource _audioSource;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = rotateSound;
+    }
+
+    public void PlayRotateSound()
+    {
+        _audioSource.Play();
+    }
+
     public void CheckCombination()
     {
         if (rotators[0].GetValue() == combination.x &&

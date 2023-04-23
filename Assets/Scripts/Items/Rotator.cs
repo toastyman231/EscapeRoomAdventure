@@ -20,6 +20,7 @@ public class Rotator : MonoBehaviour, IInteractable
     {
         if (!_canRotate) return;
 
+        comboLock.PlayRotateSound();
         _canRotate = false;
         _rotX = GetNewRotation(_rotX);
         LeanTween.value(gameObject, RotateCylinderCallback, _rotX + 36f, _rotX, rotateDuration).setOnComplete(OnRotate);
