@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class Board : MonoBehaviour, IInteractable
 {
+    [SerializeField] private AudioClip breakSound;
+
+    private AudioSource _audioSource;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     public void BreakBoard()
     {
-        gameObject.SetActive(false);
+        _audioSource.clip = breakSound;
+        _audioSource.Play();
+        //gameObject.SetActive(false);
+        transform.position = new Vector3(0, 10000, 0);
     }
 
     public void MouseOver()
