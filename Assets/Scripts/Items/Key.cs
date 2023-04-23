@@ -51,6 +51,7 @@ public class Key : MonoBehaviour, IInteractable, IInventoryItem
     {
         PlayerInteraction interaction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
         transform.position = interaction.HeldObjectTarget();
+        GetComponent<Rigidbody>().isKinematic = false;
         gameObject.SetActive(true);
     }
 

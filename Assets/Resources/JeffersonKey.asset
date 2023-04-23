@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9672759bdc3d443a1777d6377472d8, type: 3}
+  m_Name: JeffersonKey
+  m_EditorClassIdentifier: 
+  text: I can't believe they've given me free range to do whatever I want with the
+    subject!\\nSo many advances in sience could be made! Seeing the subjects' reactions
+    to my tests could prove quite valuable...\\nSo far I've come up with a few cool
+    tests I could run to measure their intelligence. A simple lojic puzzle, and a
+    few easy mazes, nothing too bad.\\nI even have a location picked out and everything!
+    I just need too remember not to leave these notes in here once I'm done! It wuold
+    be bad if the subject caught on before they realized they were being tested on...\\nWemll
+    anyway, I'll come back to this tomorrow. I'm famished! I could go for a nice
+    burger right about now...

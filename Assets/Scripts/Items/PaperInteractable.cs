@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PaperInteractable : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string itemName;
     [SerializeField] private GameObject paperCanvas;
     [SerializeField] private PaperText paperText;
 
@@ -12,7 +13,7 @@ public class PaperInteractable : MonoBehaviour, IInteractable
     {
         gameObject.layer = LayerMask.NameToLayer("Outline");
 
-        InteractionUIController.ShowInteractionUi("Read Puzzle");
+        InteractionUIController.ShowInteractionUi("Read " + itemName);
     }
 
     public void MouseExit()

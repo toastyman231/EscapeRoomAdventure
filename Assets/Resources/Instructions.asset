@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9672759bdc3d443a1777d6377472d8, type: 3}
+  m_Name: Instructions
+  m_EditorClassIdentifier: 
+  text: 'How to use the Jefferson Disk:\\n\\n
+
+    You will need a "key" for the
+    disk, which is a sequence of numbers. These represent the order of the disks.
+    Assume the disks are ordered 1 -5, left to right. You can swap disks by clicking
+    on them. Don''t forget which disk is which once you start moving them around!\\n\\n
+
+    Once
+    you have the disks in the correct order, rotate them so the message you wish
+    to decode is between the arrows. Now all you have to do is rotate the entire
+    disk until you find the row that spells out the real message!\\n\\n
+
+    This
+    Jefferson Disk will provide the first digit of the door code.'
