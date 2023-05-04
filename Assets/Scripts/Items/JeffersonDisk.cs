@@ -21,8 +21,6 @@ public class JeffersonDisk : MonoBehaviour, IInteractable
 
     [SerializeField] private float rotateTime;
 
-    private Transform _originalCameraPos;
-
     private bool _puzzleActive = false;
 
     private AudioSource _audioSource;
@@ -67,7 +65,6 @@ public class JeffersonDisk : MonoBehaviour, IInteractable
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerController>().SetCanMove(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<PauseController>().CanPause = false;
 
-        _originalCameraPos = Camera.main.transform;
         LeanTween.move(Camera.main.gameObject, cameraPosition.position, transitionTime).setOnComplete(OnPuzzleEnabled);
         LeanTween.rotate(Camera.main.gameObject, cameraPosition.rotation.eulerAngles, transitionTime);
     }

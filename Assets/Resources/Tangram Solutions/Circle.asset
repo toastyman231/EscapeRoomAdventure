@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1064af9aa34ac4899fe4d380be560b, type: 3}
+  m_Name: Circle
+  m_EditorClassIdentifier: 
+  BigTriangle1Position: {x: 8.799405, y: 1.8490002, z: -10.909644}
+  BigTriangle2Position: {x: 8.182157, y: 1.8490002, z: -9.9847555}
+  MediumTrianglePosition: {x: 8.200217, y: 1.8490002, z: -10.760915}
+  SmallTriangle1Position: {x: 8.194641, y: 1.8490002, z: -10.450645}
+  SmallTriangle2Position: {x: 8.351748, y: 1.8490002, z: -10.912214}
+  SquarePosition: {x: 8.633139, y: 1.8490002, z: -10.306723}
+  RhombusPosition: {x: 8.744144, y: 1.8490002, z: -10.305352}
+  BigTriangle1Rotation: {x: 270, y: 135, z: 0}
+  BigTriangle2Rotation: {x: 270, y: 45, z: 0}
+  MediumTriangleRotation: {x: 270, y: 270, z: 0}
+  SmallTriangle1Rotation: {x: 270, y: 90, z: 0}
+  SmallTriangle2Rotation: {x: 270, y: 90, z: 0}
+  SquareRotation: {x: 270, y: -0, z: 0}
+  RhombusRotation: {x: 270, y: -0, z: 0}
+  BigTangrams: 1

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:GroupBox>
+        <ui:Label text="Tangram Solution Generator" style="align-items: center; justify-content: center; height: 39px; -unity-text-align: middle-center;" />
+        <ui:TextField picking-mode="Ignore" label="Solution Name" value="filler text" text="New Solution" name="NameField" style="padding-bottom: 15px;" />
+        <ui:Button text="Generate &#10;Solution" display-tooltip-when-elided="true" name="GenerateButton" />
+    </ui:GroupBox>
+</ui:UXML>
