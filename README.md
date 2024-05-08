@@ -1,2 +1,2 @@
-# G300-FinalProject
-This is a repository for my final project for G300, Escape Room Adventure.
+# EscapeRoomAdventure
+A short escape room puzzle game prototype made for my G300 Game Production class.
